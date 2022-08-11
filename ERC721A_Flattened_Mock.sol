@@ -1555,7 +1555,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
      * as well as Private/Presale price adn Public Mint price.
      * Public are easily retrieved on Etherscan/FrontEnd
      */
-    uint256 MAX_MINTS = 100;
+    uint256 public MAX_MINTS = 100;
     uint256 MAX_ELEMENTS = 5555;
     uint256 public mintRate = 0.07 ether;
     uint256 public privateMintPrice = 0.055 ether;
@@ -1702,21 +1702,6 @@ contract ERC721_SQUID is ERC721A, Ownable {
     }
 
     /*
-     * @dev returns Max total mints allowed
-     * by any one wallet on frontend/etherscan
-     */
-    function maxAllowedMints() external view returns (uint256) {
-        return MAX_MINTS;
-    }
-
-    /*
-     * @dev returns Public Mint price on frontend/etherscan
-     */
-    function publicmintPrice() external view returns (uint256) {
-    return mintRate;
-    }
-
-    /*
      * @dev Withdrawl function, Contract ETH balance
      * to owner wallet address.
      */
@@ -1729,13 +1714,6 @@ contract ERC721_SQUID is ERC721A, Ownable {
      */
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
-    }
-
-     /*
-     * @dev Set Public Price
-     */
-    function setPublicRate(uint256 _mintRate) public onlyOwner {
-        mintRate = _mintRate;
     }
 
      /*
