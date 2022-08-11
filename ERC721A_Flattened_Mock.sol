@@ -1719,7 +1719,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
      /*
      * @dev Pause sale if active, make active if paused
      */
-    function isSaleActive() public onlyOwner {
+    function setSaleActive() public onlyOwner {
         saleIsActive = !saleIsActive;
     }
     
@@ -1727,7 +1727,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
     * @dev flip sale state from whitelist to public
     *
     */
-    function isPrivateSaleActive() public onlyOwner {
+    function setPrivateSaleActive() public onlyOwner {
         privateSaleIsActive = !privateSaleIsActive;
     }
 
