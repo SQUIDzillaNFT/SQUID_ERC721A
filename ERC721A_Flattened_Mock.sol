@@ -1620,7 +1620,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
     * @dev mint funtion with _to address. no cost mint
     *  by contract owner/deployer
     */
-    function Devmint(uint256 quantity, address _to) external payable onlyOwner {
+    function Devmint(uint256 quantity, address _to) external onlyOwner {
         require(saleIsActive, "Sale must be active to mint");
         require(totalSupply() + quantity <= MAX_ELEMENTS, "Not enough tokens left");
         _safeMint(_to, quantity);
@@ -1720,7 +1720,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
      * @dev Withdrawl function, Contract ETH balance
      * to owner wallet address.
      */
-    function withdraw() external onlyOwner {
+    function withdraw() public onlyOwner {
         payable(owner()).transfer(address(this).balance);
     }
 
