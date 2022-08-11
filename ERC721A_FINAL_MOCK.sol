@@ -189,15 +189,15 @@ contract ERC721_SQUID is ERC721A, Ownable {
      /*
      * @dev Pause sale if active, make active if paused
      */
-    function flipSaleState() public onlyOwner {
+    function isSaleActive() public onlyOwner {
         saleIsActive = !saleIsActive;
     }
     
     /*
-    * @dev flip sale state form whitelist to public
+    * @dev flip sale state from whitelist to public
     *
     */
-    function flipPrivateSaleState() public onlyOwner {
+    function isPrivateSaleActive() public onlyOwner {
         privateSaleIsActive = !privateSaleIsActive;
     }
 
