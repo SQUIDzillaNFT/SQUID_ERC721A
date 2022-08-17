@@ -1319,7 +1319,6 @@ contract ERC721A is Context, ERC165, IERC721, IERC721Metadata, IERC721Enumerable
             _ownerships[startTokenId].startTimestamp = uint64(block.timestamp);
 
             uint256 updatedIndex = startTokenId;
-// remember here is test for  i = 1 usually its just i no = anything
             for (uint256 i; i < quantity; i++) {
                 emit Transfer(address(0), to, updatedIndex);
                 if (safe && !_checkOnERC721Received(address(0), to, updatedIndex, _data)) {
@@ -1576,7 +1575,6 @@ contract ERC721_SQUID is ERC721A, Ownable {
     */
     struct Whitelist {
         address addr;
-        uint256 claimAmount;
         uint256 hasMinted;
     }
 

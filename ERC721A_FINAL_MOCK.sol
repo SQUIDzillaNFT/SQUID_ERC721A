@@ -46,7 +46,6 @@ contract ERC721_SQUID is ERC721A, Ownable {
     */
     struct Whitelist {
         address addr;
-        uint256 claimAmount;
         uint256 hasMinted;
     }
 
@@ -103,7 +102,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
     * Use Max Mints more of a max perwallet than how many can be minted.
     * This remedied the bug of not being able to mint in Public sale after
     * a presale mint has occured. or a mint has occured and was transfered to a different wallet.
-    */    
+    */   
     function mint(uint256 quantity) external payable {
         require(saleIsActive, "Sale must be active to mint");
         // _safeMint's second argument now takes in a quantity, not a tokenId.
