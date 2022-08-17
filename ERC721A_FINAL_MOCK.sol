@@ -166,14 +166,6 @@ contract ERC721_SQUID is ERC721A, Ownable {
         return MAX_ELEMENTS;
     }
 
-    /*
-     * @dev Withdrawl function, Contract ETH balance
-     * to owner wallet address.
-     */
-    function withdraw() public onlyOwner {
-        payable(owner()).transfer(address(this).balance);
-    }
-
      /*
      * @dev returns Base URI on frontend/etherscan
      */
@@ -195,19 +187,15 @@ contract ERC721_SQUID is ERC721A, Ownable {
     function setPrivateSaleActive() public onlyOwner {
         privateSaleIsActive = !privateSaleIsActive;
     }
-
+    
     /*
-    * @dev Set Whitelist address
-    * array - format must be: ["address1","address2"]
-    * 
-    */
-    function setWhitelistAddr(address[] memory addrs) public onlyOwner {
-        whitelistAddr = addrs;
-        for (uint256 i = 0; i < whitelistAddr.length; i++) {
-            addAddressToWhitelist(whitelistAddr[i]);
-        }
+     * @dev Withdrawl function, Contract ETH balance
+     * to owner wallet address.
+     */
+    function withdraw() public onlyOwner {
+        payable(owner()).transfer(address(this).balance);
     }
-
+    
     /*
     * @dev Alternative withdrawl
     * mint funs to a specified address
@@ -221,6 +209,18 @@ contract ERC721_SQUID is ERC721A, Ownable {
         require(_amount <= address(this).balance, "Amount too high");
         (bool success, ) = _to.call{value: _amount}("");
         require(success);
+    }
+
+    /*
+    * @dev Set Whitelist address
+    * array - format must be: ["address1","address2"]
+    * 
+    */
+    function setWhitelistAddr(address[] memory addrs) public onlyOwner {
+        whitelistAddr = addrs;
+        for (uint256 i = 0; i < whitelistAddr.length; i++) {
+            addAddressToWhitelist(whitelistAddr[i]);
+        }
     }
 
     /*
