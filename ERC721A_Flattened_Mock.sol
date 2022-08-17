@@ -1629,8 +1629,11 @@ contract ERC721_SQUID is ERC721A, Ownable {
     /*
     * @dev mint function and checks for saleState and mint quantity
     * Includes Private/public sale checks and quantity minted.
-    *
-    */    
+    * ** Updated to only look for whitelist during Presale state only
+    * Use Max Mints more of a max perwallet than how many can be minted.
+    * This remedied the bug of not being able to mint in Public sale after
+    * a presale mint has occured. or a mint has occured and was transfered to a different wallet.
+    */   
     function mint(uint256 quantity) external payable {
         require(saleIsActive, "Sale must be active to mint");
         // _safeMint's second argument now takes in a quantity, not a tokenId.
@@ -1649,16 +1652,9 @@ contract ERC721_SQUID is ERC721A, Ownable {
             whitelist[msg.sender].hasMinted = whitelist[msg.sender]
                 .hasMinted
                 .add(quantity);
-        } else {
-        if (isWhitelisted(msg.sender)) {
-            require((balanceOf(msg.sender) - whitelist[msg.sender].hasMinted + quantity) <= MAX_MINTS, "Cant Mint any More Tokens");
-        } else {
+        } else { 
             require((balanceOf(msg.sender) + quantity) <= MAX_MINTS, "Cant Mint any More Tokens");
-        }
-            require(
-                (mintRate * quantity) <= msg.value,
-                "Value below price"
-            );
+            require((mintRate * quantity) <= msg.value, "Value below price");
         }
 
 
