@@ -1555,7 +1555,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
      * Public are easily retrieved on Etherscan/FrontEnd
      */
     uint256 public MAX_MINTS = 100;
-    uint256 MAX_ELEMENTS = 5555;
+    uint256 public MAX_SUPPLY = 5555;
     uint256 public mintRate = 0.07 ether;
     uint256 public privateMintPrice = 0.055 ether;
     uint256 public MAX_MINT_WHITELIST = 50;
@@ -1620,7 +1620,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
     */
     function Devmint(uint256 quantity, address _to) external onlyOwner {
         require(saleIsActive, "Sale must be active to mint");
-        require(totalSupply() + quantity <= MAX_ELEMENTS, "Not enough tokens left");
+        require(totalSupply() + quantity <= MAX_SUPPLY, "Not enough tokens left");
         _safeMint(_to, quantity);
     }
 
@@ -1636,7 +1636,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
         require(saleIsActive, "Sale must be active to mint");
         // _safeMint's second argument now takes in a quantity, not a tokenId.
         require(quantity + _numberMinted(msg.sender) <= MAX_MINTS, "Exceeds Max Allowed Mint Count");
-        require(totalSupply() + quantity <= MAX_ELEMENTS, "Not enough tokens left to Mint");
+        require(totalSupply() + quantity <= MAX_SUPPLY, "Not enough tokens left to Mint");
 
         if(privateSaleIsActive) {
            require(msg.value >= (privateMintPrice * quantity), "Not enough ETH sent");
@@ -1656,7 +1656,7 @@ contract ERC721_SQUID is ERC721A, Ownable {
         }
 
 
-        if (totalSupply() < MAX_ELEMENTS){
+        if (totalSupply() < MAX_SUPPLY){
         _safeMint(msg.sender, quantity);
         }
     }
@@ -1685,14 +1685,6 @@ contract ERC721_SQUID is ERC721A, Ownable {
      */
     function setBaseURI(string calldata newBaseURI) external onlyOwner {
         baseURI = newBaseURI;
-    }
-
-    /*
-     * @dev returns Max allowed NFTs to be minted
-     *  on frontend/etherscan
-     */
-    function maxSupply() external view returns (uint256) {
-        return MAX_ELEMENTS;
     }
 
      /*
